@@ -48,9 +48,23 @@
 <script src="js.js" ></script>
 <script>
     Validator({
-        formMessage : ".form-message",
         form: "#form-1",
-        rule: [Validator.isRequired("#fullname"), Validator.isEmail("#email")],
+        formGroup: ".form-group",
+        formMessage : ".form-message",
+        rule: [Validator.isRequired("#fullname"), 
+        Validator.isRequired("#email","trường này bạn phải nhập"),
+        Validator.isEmail("#email","khong phải email"),
+        Validator.isRequired("#password", "trường này bạn phải nhập"),
+        Validator.minlength("#password",3),
+        Validator.isRequired("#password_confirmation","trường này bạn phải nhập"),
+        Validator.isConfirmPassword("#password_confirmation", function () {
+            return document.querySelector("#form-1 #password").value ;
+        }, "không trùng vs password , mời nhập lại") ,
+        ],
+        onSubmit: function(data){
+            console.log(data);
+        }
+        
     });
 </script>
 </html>
